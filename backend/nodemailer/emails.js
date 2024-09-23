@@ -15,14 +15,29 @@ export const sendOtp = async (email, otp) => {
 };
    
 
-export const sendResetPasswordLink = async (email) =>{
+export const sendResetPasswordLink = async (email, resetPasswordUrl) =>{
 
     try {
         let info = await transporter.sendMail({
           from: '"OTP Service" <clintonadeoti02@gmail.com>',
           to: email,
           subject: "Reset Your Password",
-          text: `yoo! Chad click here to rest your password`,
+          text: `yoo! Chad click here ${resetPasswordUrl} to rest your password`,
+        });
+        console.log("Message sent: %s", info.messageId);
+      } catch (error) {
+        console.log("error from mailer" + error)
+      }
+}
+
+export const sendResetSuccess = async (email) =>{
+        
+    try {
+        let info = await transporter.sendMail({
+          from: '"OTP Service" <clintonadeoti02@gmail.com>',
+          to: email,
+          subject: "Reset Your Password",
+          text: `yoo! Chad successfully reset your password`,
         });
         console.log("Message sent: %s", info.messageId);
       } catch (error) {
